@@ -34,8 +34,6 @@ describe Oystercard do
     expect { card.touch_out(exit_station) }.to change { card.balance }.by(-(Journey::MINIMUM_FARE))
   end
 
-  it "has an emtpy list of journeys by default" do
-    expect(card.journey_history).to be_empty
-  end
+
 
 end

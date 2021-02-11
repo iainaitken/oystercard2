@@ -6,8 +6,7 @@ MINIMUM_AMOUNT = 1
   def initialize(topup_limit = MAXIMUM_AMOUNT)
     @balance = 0
     @maximum_amount = topup_limit
-    @journey_history = []
-    @journey = Journey.new
+    @journeylog = JourneyLog.new
   end
 
   def top_up(amount)
@@ -17,14 +16,12 @@ MINIMUM_AMOUNT = 1
 
   def touch_in(entry_station)
     fail "You have less than #{MINIMUM_AMOUNT} on your card" if @balance < MINIMUM_AMOUNT
-    @journey = Journey.new(entry_station)
+    @journeylog.start(entry_station)
   end
 
   def touch_out(exit_station)
-    @journey.finish(exit_station)
-    deduct(@journey.fare)
-    @journey_history.push @journey
-    @journey = Journey.new
+    @journeylog.finish(exit_station)
+    deduct(@journeylog.journeys.last.fare)
   end
 
 private

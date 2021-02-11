@@ -13,7 +13,7 @@ class Journey
     (@entry_station != nil) && (@exit_station != nil)
   end
 
-  def finish(exit_station)
+  def fin(exit_station)
     @exit_station = exit_station
   end
 
