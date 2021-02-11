@@ -28,21 +28,11 @@ describe Oystercard do
     expect { card.touch_in("entry_station") }.to raise_error "You have less than #{Oystercard::MINIMUM_AMOUNT} on your card"
   end
 
-  # it 'should deduct money by given amount' do
-  #   subject.top_up(20)
-  #   expect{subject.deduct(10)}.to change{subject.balance}.by(-10)
-  # end
-
   it "deducts minimum fare from @balance when the user touches out" do
     card.top_up(Oystercard::MINIMUM_AMOUNT)
     card.touch_in(entry_station)
     expect { card.touch_out(exit_station) }.to change { card.balance }.by(-(Journey::MINIMUM_FARE))
   end
-
-  # it 'can touch in' do
-  #   card.top_up(Oystercard::Minimum_amount)
-  #   expect { card.touch_in(entry_station) }.to change{card.in_journey?}.from(false).to(true)
-  # end
 
   it "has an emtpy list of journeys by default" do
     expect(card.journey_history).to be_empty
